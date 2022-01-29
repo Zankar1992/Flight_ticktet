@@ -1,18 +1,15 @@
-import React from "react";
-import Addnewflights from "./Addnewflights";
-import SeatGenerate from "./SeatGenerate";
-import FindFlights from "./FindFlights";
+import React from 'react';
+// import SeatGenerate from './Components/SeatGenerate';
+import FlightSearch from './Components/FlightSearch';
+import Header from './Components/Header';
 
 const App = () => {
   return (
     <>
       <div>
-        <h1>Flight Generate Seat</h1>
-        <hr/>
-        <SeatGenerate />
-        <FindFlights />
-        <Addnewflights />
-        <button variant="primary"> Search</button>
+        <Header/>
+        {/* <SeatGenerate /> */}
+        <FlightSearch />
       </div>
     </>
   )
