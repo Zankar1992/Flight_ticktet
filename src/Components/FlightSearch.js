@@ -5,11 +5,9 @@ class FlightSearch extends PureComponent {
   constructor() {
     super();
     this.state = {
-      SeatGenerate: '',
       origin: '',
       destination: '',
     };
-    this.onInputChange = this.onInputChange.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.onSearchFlights = this.onSearchFlights.bind(this);
   }
@@ -32,7 +30,6 @@ class FlightSearch extends PureComponent {
 
   onSearchFlights() {
     this.props.searchFlights(
-      this.state.SeatGenerate,
       this.state.origin,
       this.state.destination
     );
@@ -41,15 +38,6 @@ class FlightSearch extends PureComponent {
   render() {
     return (
       <div className="fs-container">
-         <FormGroup controlId="SeatGenerate"> 
-          <FormControl
-            type="text"
-            placeholder="SeatGenerate"
-            value={this.state.SeatGenerate}
-            onChange={this.onInputChange}
-          />
-        </FormGroup>
-        <br/>
         <FormGroup controlId="origin">
           <FormControl
             type="text"
