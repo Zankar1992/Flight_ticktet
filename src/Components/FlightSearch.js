@@ -1,15 +1,17 @@
 import React, { PureComponent } from 'react';
-import { FormControl, FormGroup, Button } from 'react-bootstrap';
+import { FormControl, FormGroup, Button, FormLabel } from 'react-bootstrap';
 
 class FlightSearch extends PureComponent {
   constructor() {
     super();
     this.state = {
+      flightnumber: '',
       origin: '',
       destination: '',
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSearchFlights = this.onSearchFlights.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
   }
 
   onInputChange = (e) => {
@@ -19,6 +21,9 @@ class FlightSearch extends PureComponent {
   }
 
   validateInputs() {
+    if (this.state.flightnumber.length === 0) {
+      return false;
+    }
     if (this.state.origin.length === 0) {
       return false;
     }
@@ -28,26 +33,44 @@ class FlightSearch extends PureComponent {
     return true;
   }
 
-  onSearchFlights() {
+  onSearchFlights = (props) => {
     this.props.searchFlights(
       this.state.origin,
-      this.state.destination
+      this.state.destination,
+      this.state.flightnumber
     );
+    // console.log(this.props);
   }
 
   render() {
     return (
       <div className="fs-container">
+        <FormGroup controlId="flightnumber">
+          <FormLabel>Flight Number:</FormLabel>
+          <FormControl
+            type="text"
+            placeholder="Flight Number"
+            value={this.state.flightnumber}
+            onChange={this.onInputChange}
+          />
+        </FormGroup>
+        <br />
         <FormGroup controlId="origin">
+          <FormLabel>Origin:</FormLabel>
           <FormControl
             type="text"
             placeholder="Origin"
             value={this.state.origin}
             onChange={this.onInputChange}
+          /* <option value="Ahmedabad">AHMEDABAD</option>
+          <option value="mumbai">MUMBAI</option>
+          <option value="Goa">GOA</option>
+          <option value="tamilnadu">TAMILNADU</option> */
           />
         </FormGroup>
-        <br/>
+        <br />
         <FormGroup controlId="destination" bsSize='xsmall'>
+          <FormLabel>Destination:</FormLabel>
           <FormControl
             type="text"
             placeholder="Destination"
@@ -55,16 +78,13 @@ class FlightSearch extends PureComponent {
             onChange={this.onInputChange}
           />
         </FormGroup>
-        <br/>
+        <br />
         <Button
-          bsStyle="primary"
-          style={{ height: '46px' }}
-          bsSize="small"
           onClick={this.onSearchFlights}
         >
           Search
         </Button>
-      </div>
+      </div >
     )
   }
 }

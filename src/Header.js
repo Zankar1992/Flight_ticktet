@@ -9,7 +9,7 @@ const Header = () => {
       <nav>
         <Link to="/">Seat Generate</Link> <br />
         <Link to="/flightsearch">Flight Search</Link> <br />
-        <Link to="/addnewflight">Add New Flight</Link>
+        <Link to="/flightaddlist">Flight Add List</Link>
       </nav>
     </div>
   )

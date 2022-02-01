@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import FlightSearch from './Components/FlightSearch';
 import SeatGenerate from './SeatGenerate';
 import Header from './Header';
-import AddNewFlight from './AddNewFlight';
+import FlightAddList from './FlightAddList';
 
 class Routes extends Component {
   render() {
@@ -11,7 +11,7 @@ class Routes extends Component {
       <BrowserRouter>
       <Header/>
       <Switch>
-        <Route path="/addnewflight" component={AddNewFlight}/>
+        <Route path="/flightaddlist" component={FlightAddList}/>
         <Route path="/flightsearch" component={FlightSearch}/>
         <Route path="/" component={SeatGenerate}/>
       </Switch>
