@@ -1,90 +1,74 @@
-import React, { PureComponent } from 'react';
-import { FormControl, FormGroup, Button, FormLabel } from 'react-bootstrap';
+import React, { Component } from 'react';
 
-class FlightSearch extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      flightnumber: '',
+class FlightSearch extends Component {
+  userdata;
+
+  constructor(props) {
+    super(props);
+
+    this.onChangeOrigin = this.onChangeOrigin.bind(this);
+    this.onChangeDestination = this.onChangeDestination.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+
+    this.state = [{
       origin: '',
       destination: '',
-    };
-    this.onInputChange = this.onInputChange.bind(this);
-    this.onSearchFlights = this.onSearchFlights.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
+    }];
   }
 
-  onInputChange = (e) => {
+  onChangeOrigin(e) {
+    this.setState({ origin: e.target.value })
+  }
+
+  onChangeDestination(e) {
+    this.setState({ destination: e.target.value })
+  }
+
+  onSubmit(e) {
+    e.preventDefault()
+
     this.setState({
-      [e.target.id]: e.target.value
-    });
+      origin: '',
+      destination: '',
+    })
   }
 
-  validateInputs() {
-    if (this.state.flightnumber.length === 0) {
-      return false;
+  componentDidMount() {
+    this.userdata = JSON.parse(localStorage.getItem('user'));
+
+    if (localStorage.getItem('user')) {
+      this.setState({
+        origin: this.userdata.origin,
+        destination: this.userdata.destination
+      })
+    } else {
+      this.setState({
+        origin: '',
+        destination: ''
+      })
     }
-    if (this.state.origin.length === 0) {
-      return false;
-    }
-    if (this.state.destination.length === 0) {
-      return false;
-    }
-    return true;
   }
 
-  onSearchFlights = (props) => {
-    this.props.searchFlights(
-      this.state.origin,
-      this.state.destination,
-      this.state.flightnumber
-    );
-    // console.log(this.props);
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem('user', JSON.stringify(nextState));
   }
 
   render() {
     return (
-      <div className="fs-container">
-        <FormGroup controlId="flightnumber">
-          <FormLabel>Flight Number:</FormLabel>
-          <FormControl
-            type="text"
-            placeholder="Flight Number"
-            value={this.state.flightnumber}
-            onChange={this.onInputChange}
-          />
-        </FormGroup>
-        <br />
-        <FormGroup controlId="origin">
-          <FormLabel>Origin:</FormLabel>
-          <FormControl
-            type="text"
-            placeholder="Origin"
-            value={this.state.origin}
-            onChange={this.onInputChange}
-          /* <option value="Ahmedabad">AHMEDABAD</option>
-          <option value="mumbai">MUMBAI</option>
-          <option value="Goa">GOA</option>
-          <option value="tamilnadu">TAMILNADU</option> */
-          />
-        </FormGroup>
-        <br />
-        <FormGroup controlId="destination" bsSize='xsmall'>
-          <FormLabel>Destination:</FormLabel>
-          <FormControl
-            type="text"
-            placeholder="Destination"
-            value={this.state.destination}
-            onChange={this.onInputChange}
-          />
-        </FormGroup>
-        <br />
-        <Button
-          onClick={this.onSearchFlights}
-        >
-          Search
-        </Button>
-      </div >
+      <div className="container">
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label>Origin:</label>
+            <input type="text" className="form-control" value={this.state.origin} onChange={this.onChangeOrigin} />
+          </div> <br/>
+          <div className="form-group">
+            <label>Destination:</label>
+            <input type="text" className="form-control" value={this.state.destination} onChange={this.onChangeDestination} />
+          </div>
+          <br/>
+          <button type="submit" className="btn btn-primary btn-block">Add</button>
+        </form >
+      </div>
     )
   }
 }
