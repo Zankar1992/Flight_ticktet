@@ -23,13 +23,15 @@ class FlightSearch extends Component {
   }
 
   onSubmit(e) {
-    e.preventDefault()
+    e.preventDefault()  // only preventdefault method use kari hoy tyare value add karel j rehse page reload kariye to pn 
 
-    this.setState({
+    this.setState({   // this code page reload and submit karta j data empty thai jase 
       origin: '',
       destination: '',
     })
   }
+
+  // react life cycle  localstorage code 
 
   // componentDidMount() {
   //   this.userdata = JSON.parse(localStorage.getItem('user'));
@@ -47,9 +49,9 @@ class FlightSearch extends Component {
   //   }
   // }
 
-  // componentWillUpdate(nextProps, nextState) {
-  //   localStorage.setItem('user', JSON.stringify(nextState));
-  // }
+  componentWillUpdate() {
+    localStorage.setItem('user', JSON.stringify(this.setState));
+  }
 
   render() {
     return (
@@ -58,12 +60,12 @@ class FlightSearch extends Component {
           <div className="form-group">
             <label>Origin:</label>
             <input type="text" className="form-control" value={this.state.origin} onChange={this.onChangeOrigin} />
-          </div> <br/>
+          </div> <br />
           <div className="form-group">
             <label>Destination:</label>
             <input type="text" className="form-control" value={this.state.destination} onChange={this.onChangeDestination} />
           </div>
-          <br/>
+          <br />
           <button type="submit" className="btn btn-primary btn-block">Add</button>
         </form >
       </div>
