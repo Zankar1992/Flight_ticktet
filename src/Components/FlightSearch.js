@@ -6,31 +6,30 @@ class FlightSearch extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeOrigin = this.onChangeOrigin.bind(this);
-    this.onChangeDestination = this.onChangeDestination.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
 
-    this.state = [{
+    this.state = {
       origin: '',
       destination: '',
-    }];
+    };
   }
 
-  onChangeOrigin(e) {
-    this.setState({ origin: e.target.value })
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
-  onChangeDestination(e) {
-    this.setState({ destination: e.target.value })
-  }
+  // onChangeDestination(e) {
+  //   this.setState({ destination: e.target.value })
+  // }
 
-  onSubmit(e) {
+  handleFormSubmit(e) {
     e.preventDefault()
-
-    this.setState({
-      origin: '',
-      destination: '',
-    })
+    localStorage.setItem('user',JSON.stringify(this.state));
+    // this.setState({
+    //   origin: this.userdata.origin,
+    //   destination: this.userdata.destination,
+    // })
   }
 
   componentDidMount() {
@@ -49,23 +48,23 @@ class FlightSearch extends Component {
     }
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    localStorage.setItem('user', JSON.stringify(nextState));
-  }
+  // componentWillUpdate(nextProps, nextState) {
+  //   localStorage.setItem('user', JSON.stringify(nextState));
+  // }
 
   render() {
     return (
       <div className="container">
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label>Origin:</label>
-            <input type="text" className="form-control" value={this.state.origin} onChange={this.onChangeOrigin} />
-          </div> <br/>
+            <input type="text" className="form-control" value={this.state.origin} onChange={this.handleChange} />
+          </div> <br />
           <div className="form-group">
             <label>Destination:</label>
-            <input type="text" className="form-control" value={this.state.destination} onChange={this.onChangeDestination} />
+            <input type="text" className="form-control" value={this.state.destination} onChange={this.handleChange} />
           </div>
-          <br/>
+          <br />
           <button type="submit" className="btn btn-primary btn-block">Add</button>
         </form >
       </div>
